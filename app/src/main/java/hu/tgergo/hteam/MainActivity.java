@@ -12,24 +12,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String[] forecasts = new String[] {
-                "Hétfő - 20",
-                "Kedd - 22",
-                "Szerda - 21",
-                "Csütörtök - 24",
-                "Péntek - 18",
-                "Szombat - 16",
-                "Vasárnap - 20",
+        String[] todos = new String[] {
+                "Collect underpants",
+                "?",
+                "Profit"
         };
 
         ArrayAdapter<String> forecastAdapter =
                 new ArrayAdapter<>(
                         this,
                         android.R.layout.simple_expandable_list_item_1,
-                        forecasts
+                        todos
                 );
 
-        ListView list = (ListView) findViewById(R.id.forecast_list);
+        ListView list = (ListView) findViewById(R.id.todo_list);
         list.setAdapter(forecastAdapter);
     }
 }
