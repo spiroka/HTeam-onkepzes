@@ -18,14 +18,14 @@ public class MainActivity extends AppCompatActivity {
                 "Profit"
         };
 
-        ArrayAdapter<String> forecastAdapter =
+        ArrayAdapter<String> todoAdapter =
                 new ArrayAdapter<>(
                         this,
-                        android.R.layout.simple_expandable_list_item_1,
+                        android.R.layout.simple_list_item_1,
                         todos
                 );
 
         ListView list = (ListView) findViewById(R.id.todo_list);
-        list.setAdapter(forecastAdapter);
+        list.setAdapter(todoAdapter);
     }
 }
