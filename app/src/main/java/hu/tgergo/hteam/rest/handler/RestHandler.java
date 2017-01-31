@@ -13,30 +13,26 @@ import java.net.URL;
  */
 
 public class RestHandler {
-    public String get(URL url) {
+    public String get(URL url) throws Exception {
         HttpURLConnection urlConnection = null;
         String result = null;
 
-        try {
-            urlConnection = (HttpURLConnection) url.openConnection();
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            String line;
-            StringBuilder out = new StringBuilder();
+        urlConnection = (HttpURLConnection) url.openConnection();
+        InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        String line;
+        StringBuilder out = new StringBuilder();
 
-            while ((line = reader.readLine()) != null) {
-                out.append(line);
-            }
-
-            in.close();
-            reader.close();
-
-            result =  out.toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if(urlConnection != null) urlConnection.disconnect();
+        while ((line = reader.readLine()) != null) {
+            out.append(line);
         }
+
+        in.close();
+        reader.close();
+
+        result = out.toString();
+
+        urlConnection.disconnect();
 
         return result;
     }
