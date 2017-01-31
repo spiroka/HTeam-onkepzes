@@ -6,7 +6,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import hu.tgergo.hteam.rest.callback.GetTodosCallback;
@@ -19,18 +18,17 @@ import hu.tgergo.hteam.rest.handler.RestHandler;
 public class RestManager {
     public void getTodos(final GetTodosCallback callback) {
         new AsyncTask<Void, Void, String[]>() {
-            private String error = null;
+            private String errorMsg = null;
 
             @Override
             protected String[] doInBackground(Void... params) {
-                RestHandler restHandler = new RestHandler();
-                String json = null;
                 try {
-                    json = restHandler.get(new URL("https://jsonplaceholder.typicode.com/todos"));
+                    RestHandler restHandler = new RestHandler();
+                    String json = restHandler.get(new URL("https://jsonplaceholder.typicode.com/todos"));
 
                     return readTodosFromResponse(json);
                 } catch (Exception e) {
-                    error = e.getMessage();
+                    errorMsg = e.getMessage();
                 }
 
                 return null;
@@ -38,8 +36,8 @@ public class RestManager {
 
             @Override
             protected void onPostExecute(String[] result) {
-                if(error != null) {
-                    callback.onError(error);
+                if(errorMsg != null) {
+                    callback.onError(errorMsg);
                 } else if(result != null) {
                     callback.onResult(result);
                 } else {
